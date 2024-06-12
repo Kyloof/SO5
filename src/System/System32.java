@@ -38,6 +38,15 @@ public class System32 {
         System.out.println("Total overload time: " + totalOverloadTime);
         System.out.println("Average overload time: " + avgOverloadTime);
         System.out.println("Average Load: " + avgLoad + "%");
+
+        this.processors = new ArrayList<>();
+        this.totalOverloadTime = 0;
+        this.avgOverloadTime = 0;
+        this.totalInquiries = 0;
+        this.avgLoad = 0;
+        this.acs = new ACS();
+        this.aas = new AAS();
+        this.aams = new AAMS();
     }
 
 
@@ -60,7 +69,7 @@ public class System32 {
         showResults();
     }
 
-    public void simualteAAS(int noProcessors, int limit, int inquiriesLimit, int time, float generationChance, int timeBound, int loadBound){
+    public void simualteAAS(int noProcessors, int limit, int time, float generationChance, int timeBound, int loadBound){
         ProcessorGenerator.generateProcessors(processors, noProcessors);
 
         for (int i = 0; i < time; i++){
@@ -79,12 +88,12 @@ public class System32 {
         showResults();
     }
 
-    public void simualteAAMS(int noProcessors, int limit, int inquiriesLimit, int time, float generationChance, int timeBound, int loadBound){
+    public void simualteAAMS(int noProcessors, int limit, int friendshipLimit, int time, float generationChance, int timeBound, int loadBound){
         ProcessorGenerator.generateProcessors(processors, noProcessors);
 
         for (int i = 0; i < time; i++){
             for (Processor processor : processors){
-                avgLoad += processor.simulateOneTimeQuantum(generationChance, timeBound, loadBound, aams, limit, noProcessors, processors);
+                avgLoad += processor.simulateOneTimeQuantum(generationChance, timeBound, loadBound, aams, limit, friendshipLimit, processors);
             }
         }
 
